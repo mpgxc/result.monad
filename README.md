@@ -1,3 +1,5 @@
+[![.github/workflows/publish.yml](https://github.com/mpgxc/either/actions/workflows/publish.yml/badge.svg)](https://github.com/mpgxc/either/actions/workflows/publish.yml)
+
 ### Como usar ?
 
 ```ts
