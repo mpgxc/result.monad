@@ -5,6 +5,10 @@
   "types": "lib/index.d.ts",
   "author": "mpgxc",
   "license": "MIT",
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/mpgxc/either.git"
+  },
   "scripts": {
     "clean": "rimraf lib",
     "build": "npm run clean && npm run test:cov && tsc -p tsconfig.json",
