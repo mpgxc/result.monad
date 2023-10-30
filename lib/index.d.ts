@@ -1,16 +1,19 @@
-type Success<F, S> = {
-    value: S;
-    hasError: false;
+type Optional<T> = T | null | undefined;
+type Result<T, E> = Err<E> | Ok<T>;
+type Ok<T> = {
+    value: T;
+    isOk: true;
 };
-type Failure<F, S> = {
-    value: F;
-    hasError: true;
+type Err<T> = {
+    value: T;
+    isOk: false;
 };
-type Either<F, S> = Failure<F, never> | Success<never, S>;
-type Notifications<T> = Array<Failure<T, never>>;
-declare class Result {
-    static combine<T>(notifications: Notifications<T>): Failure<T[], never>;
-    static failure<T>(value: T): Failure<T, never>;
-    static success<T>(value?: T): Success<never, T>;
-}
-export { Either, Failure, Notifications, Result, Success };
+type Notifications<T> = Array<Err<T>>;
+declare const Err: <T>(value: T) => Err<T>;
+declare const Ok: <T>(value: Optional<void | T>) => Ok<T>;
+declare const Result: {
+    Ok: <T>(value: Optional<void | T>) => Ok<T>;
+    Err: <T_1>(value: T_1) => Err<T_1>;
+    combine: <T_2>(notifications: Notifications<T_2>) => Err<T_2[]>;
+};
+export { Err, Notifications, Ok, Result };
