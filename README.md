@@ -3,19 +3,21 @@
 ### Como usar ?
 
 ```ts
-type Output = Either<{ error: string }, { message: string }>;
+type Output = Result<{ error: string }, { message: string }>;
 
 const divide = (value: number, by: number): Output => {
   if (by === 0) {
-    return Result.failure({ error: "Divisão por zero" });
+    return Result.Err({ error: "Divisão por zero" });
   }
 
-  return Result.success({ message: `Resultado: ${value / by}` });
+  return Result.Ok({ message: `Resultado: ${value / by}` });
 };
 
-if (divide(10, 0).hasError) {
-  console.log(result.value.error);
-} else {
+const result = divide(10, 2);
+
+if (result.isOk) {
   console.log(result.value.message);
+} else {
+  console.log(result.value.error);
 }
 ```
