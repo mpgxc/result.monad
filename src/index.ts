@@ -1,3 +1,7 @@
+type Optional<T> = T | null | undefined;
+
+type Result<T, E> = Err<E> | Ok<T>;
+
 type Ok<T> = {
   value: T;
   isOk: true;
@@ -10,8 +14,6 @@ type Err<T> = {
 
 type Notifications<T> = Array<Err<T>>;
 
-type Result<T, E> = Err<E> | Ok<T>;
-
 const combine = <T>(notifications: Notifications<T>): Err<T[]> =>
   Err(notifications.map(({ value }) => value));
 
@@ -20,14 +22,15 @@ const Err = <T>(value: T): Err<T> => ({
   isOk: false,
 });
 
-const Ok = <T>(value?: T): Ok<T> => ({
-  value,
+const Ok = <T>(value: Optional<T | void>): Ok<T> => ({
+  value: value as T,
   isOk: true,
 });
 
 const Result = {
   Ok,
   Err,
+  combine,
 };
 
-export { Result, Ok, Err, Notifications };
+export { Err, Notifications, Ok, Result };
